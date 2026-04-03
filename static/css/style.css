@@ -1,0 +1,241 @@
+/* Y2K URBAN WARDROBE '99 - See-through + Hangers + Click-to-Enlarge */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg,
+        #ff1493 0%,
+        #c026d3 25%,
+        #00f0ff 50%,
+        #39ff14 75%,
+        #ff1493 100%);
+    background-attachment: fixed;
+    font-family: 'Impact', 'Arial Black', 'Comic Sans MS', system-ui, sans-serif;
+    color: #fff;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.75);
+    margin: 0;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Main wardrobe cabinet - SEE-THROUGH frosted glass */
+.wardrobe {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.frame {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(14px);
+    border: 22px solid #fff;
+    border-radius: 35px;
+    padding: 50px 40px 70px;
+    box-shadow:
+        0 0 45px #ff1493,
+        0 0 90px #00f0ff,
+        inset 0 0 70px rgba(255,255,255,0.75);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shiny metal rod */
+.rod {
+    height: 18px;
+    background: linear-gradient(#f0f0f0, #fff, #d0d0d0);
+    border-radius: 12px;
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.3),
+        inset 0 8px 12px rgba(255,255,255,0.9),
+        inset 0 -4px 8px rgba(0,0,0,0.2);
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.rod::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    height: 3px;
+    background: #1a0033;
+    opacity: 0.2;
+}
+
+/* Hanging clothes row */
+.clothes-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 35px;
+}
+
+/* Each hanger + clothing */
+.clothing-item {
+    width: 200px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    text-align: center;
+}
+
+.clothing-item:hover {
+    transform: scale(1.12) rotate(6deg);
+    filter: drop-shadow(0 0 25px #ffff00);
+}
+
+.hanger-svg {
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+    transition: transform 0.3s;
+}
+
+.clothing-item:hover .hanger-svg {
+    transform: rotate(-8deg);
+}
+
+.clothing {
+    background: rgba(255,255,255,0.95);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+        0 12px 25px rgba(0,0,0,0.35),
+        inset 0 0 20px rgba(255,255,255,0.6);
+    padding: 8px;
+    margin: 0 auto 12px;
+}
+
+.clothing img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.4s;
+}
+
+.clothing-item:hover .clothing img {
+    transform: scale(1.08);
+}
+
+.item-name {
+    font-size: 1.4rem;
+    margin: 8px 0 4px;
+    color: #ffff4d;
+    text-shadow: 2px 2px 4px #ff1493;
+}
+
+.item-price {
+    font-size: 1.6rem;
+    color: #00ffff;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* MODAL - enlarged product */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(26, 0, 51, 0.92);
+    backdrop-filter: blur(12px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(18px);
+    border: 14px solid #fff;
+    border-radius: 32px;
+    max-width: 620px;
+    width: 92%;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow:
+        0 0 60px #ff1493,
+        0 0 110px #00f0ff;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 18px;
+    right: 28px;
+    font-size: 58px;
+    color: #ff1493;
+    cursor: pointer;
+    line-height: 1;
+    transition: transform 0.3s;
+}
+
+.close:hover {
+    transform: rotate(90deg) scale(1.2);
+}
+
+#modal-image {
+    width: 100%;
+    max-height: 480px;
+    object-fit: contain;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+#modal-name {
+    font-size: 2.8rem;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.modal-price {
+    font-size: 2.4rem;
+    color: #00ffff;
+    margin: 0 0 20px;
+}
+
+.modal-desc {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+.add-btn {
+    background: linear-gradient(#ff1493, #c026d3);
+    color: #fff;
+    border: none;
+    padding: 18px 50px;
+    font-size: 1.4rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 30px #ffff00;
+    transition: all 0.3s;
+}
+
+.add-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px #ffff00;
+}
+
+/* Extra Y2K sparkle on the whole page */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.15;
+    pointer-events: none;
+    animation: sparkle 14s linear infinite;
+}
+
+@keyframes sparkle {
+    0% { background-position: 0 0; }
+    100% { background-position: 180px 180px; }
+}

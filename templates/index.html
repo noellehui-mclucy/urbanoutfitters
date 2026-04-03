@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URBAN WARDROBE '99</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+    <div class="wardrobe">
+        <div class="frame">
+            <!-- Shiny hanging rod -->
+            <div class="rod"></div>
+
+            <div class="clothes-container">
+                {% for product in products %}
+                <div class="clothing-item"
+                     data-name="{{ product.name }}"
+                     data-price="{{ product.price }}"
+                     data-img="{{ product.img }}">
+
+                    <svg class="hanger-svg" width="90" height="45" viewBox="0 0 90 45" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M45 8 L45 20" stroke="#1a0033" stroke-width="7" stroke-linecap="round"/>
+                        <path d="M20 20 Q45 4 70 20" stroke="#1a0033" stroke-width="7" fill="none" stroke-linecap="round"/>
+                        <line x1="15" y1="20" x2="75" y2="20" stroke="#1a0033" stroke-width="9" stroke-linecap="round"/>
+                    </svg>
+
+                    <div class="clothing">
+                        <img src="{{ product.img }}" alt="{{ product.name }}">
+                    </div>
+                    <p class="item-name">{{ product.name }}</p>
+                    <p class="item-price">{{ product.price }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Enlarged Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modal-image" src="" alt="">
+            <h2 id="modal-name"></h2>
+            <p id="modal-price" class="modal-price"></p>
+            <p class="modal-desc">Y2K Urban Outfitters Vibes • Limited Drop ✨</p>
+            <button class="add-btn">ADD TO CART (demo)</button>
+        </div>
+    </div>
+
+    <script>
+        const items = document.querySelectorAll('.clothing-item');
+        const modal = document.getElementById('product-modal');
+        const modalImg = document.getElementById('modal-image');
+        const modalName = document.getElementById('modal-name');
+        const modalPrice = document.getElementById('modal-price');
+        const closeBtn = document.querySelector('.close');
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                modalImg.src = item.dataset.img;
+                modalName.textContent = item.dataset.name;
+                modalPrice.textContent = item.dataset.price;
+                modal.style.display = 'flex';
+            });
+        });
+
+        closeBtn.addEventListener('click', () => modal.style.display = 'none');
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
